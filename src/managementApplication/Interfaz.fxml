@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managementApplication.Controlador">
+    <children>
+        <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="636.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Archivo">
+                    <items>
+                        <MenuItem fx:id="topmenu_close" mnemonicParsing="false" onAction="#btn_topmenu_close" text="Cerrar" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
+                    <items>
+                        <MenuItem fx:id="topmenu_version" mnemonicParsing="false" onAction="#btn_topmenu_version" text="Versión" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TabPane layoutY="26.0" prefHeight="474.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Clientes">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="227.0" prefWidth="292.0">
+                            <children>
+                                <GridPane layoutX="12.0" layoutY="14.0" prefHeight="214.0" prefWidth="576.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="81.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="421.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="NIF" />
+                                        <Label text="Nombre" GridPane.rowIndex="1" />
+                                        <Label text="Apellidos" GridPane.rowIndex="2" />
+                                        <Label text="Dirección" GridPane.rowIndex="3" />
+                                        <Label text="Localidad" GridPane.rowIndex="4" />
+                                        <Label text="C.P" GridPane.rowIndex="5" />
+                                        <Label text="Teléfono" GridPane.rowIndex="6" />
+                                        <TextField fx:id="field_client_nif" promptText="12345678A" GridPane.columnIndex="1" />
+                                        <TextField fx:id="field_client_nombre" promptText="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="field_client_apellidos" promptText="Apellidos" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="field_client_direccion" promptText="C/ Ejemplo, 5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="field_client_localidad" promptText="Localidad" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="field_client_cp" promptText="12345" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="field_client_telefono" promptText="123456789" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    </children>
+                                </GridPane>
+                                <GridPane fx:id="grid_bottom_clientes" alignment="CENTER" layoutX="4.0" layoutY="418.0" prefHeight="25.0" prefWidth="593.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="38.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="9.0" prefWidth="27.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="5.0" prefWidth="41.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="0.0" prefWidth="37.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="39.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="94.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="519.0" minWidth="10.0" prefWidth="294.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="28.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#btn_client_first" prefHeight="25.0" prefWidth="29.0" text="|&lt;" />
+                                        <Button mnemonicParsing="false" onAction="#btn_client_previous" text="&lt;" GridPane.columnIndex="1" />
+                                        <TextField fx:id="field_client_page" prefHeight="25.0" prefWidth="9.0" promptText="  [ ]" GridPane.columnIndex="2" />
+                                        <Button mnemonicParsing="false" onAction="#btn_client_next" text="&gt;" GridPane.columnIndex="3" />
+                                        <Button mnemonicParsing="false" onAction="#btn_client_last" text="&gt;|" GridPane.columnIndex="4" />
+                                        <Button mnemonicParsing="false" onAction="#btn_client_add" prefHeight="25.0" prefWidth="81.0" text="Añadir" GridPane.columnIndex="5" />
+                                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Eliminar" GridPane.columnIndex="6" />
+                                    </children>
+                                </GridPane>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Productos">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="12.0" layoutY="14.0" prefHeight="214.0" prefWidth="576.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="238.0" minWidth="10.0" prefWidth="81.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="421.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="26.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="122.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Código" />
+                                        <Label text="Nombre" GridPane.rowIndex="1" />
+                                        <Label text="Descripción" GridPane.rowIndex="3" />
+                                        <Label text="Unidades" GridPane.rowIndex="6" />
+                                        <TextField fx:id="field_products_codigo" prefHeight="25.0" prefWidth="98.0" promptText="123456" GridPane.columnIndex="1" />
+                                        <TextField fx:id="field_products_nombre" promptText="Nombre del Producto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="field_products_descripcion" alignment="TOP_LEFT" prefHeight="129.0" prefWidth="421.0" promptText="Descripción corta del producto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="field_products_unidades" prefHeight="25.0" prefWidth="121.0" promptText="Unidades en Stock" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    </children>
+                                </GridPane>
+                                <GridPane fx:id="grid_bottom_productos" alignment="CENTER" layoutX="4.0" layoutY="418.0" prefHeight="25.0" prefWidth="593.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="38.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="9.0" prefWidth="27.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="5.0" prefWidth="41.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="0.0" prefWidth="37.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="39.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="94.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="519.0" minWidth="10.0" prefWidth="294.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="28.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#btn_products_first" prefHeight="25.0" prefWidth="29.0" text="|&lt;" />
+                                        <Button mnemonicParsing="false" onAction="#btn_products_previous" text="&lt;" GridPane.columnIndex="1" />
+                                        <TextField fx:id="field_products_page" prefHeight="25.0" prefWidth="9.0" promptText="  [ ]" GridPane.columnIndex="2" />
+                                        <Button mnemonicParsing="false" onAction="#btn_products_next" text="&gt;" GridPane.columnIndex="3" />
+                                        <Button mnemonicParsing="false" onAction="#btn_products_last" text="&gt;|" GridPane.columnIndex="4" />
+                                        <Button mnemonicParsing="false" onAction="#btn_products_add" prefHeight="25.0" prefWidth="81.0" text="Añadir" GridPane.columnIndex="5" />
+                                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Eliminar" GridPane.columnIndex="6" />
+                                    </children>
+                                </GridPane>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Incidencias">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="227.0" prefWidth="292.0">
+                            <children>
+                                <GridPane layoutX="12.0" layoutY="14.0" prefHeight="214.0" prefWidth="576.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="81.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="421.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="122.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Código" />
+                                        <Label text="Nombre del Cliente" GridPane.rowIndex="1" />
+                                        <Label text="Descripción" GridPane.rowIndex="2" />
+                                        <Label text="Estado de la Incidencia" GridPane.rowIndex="6" />
+                                        <TextField fx:id="field_incidencias_codigo" promptText="123456" GridPane.columnIndex="1" />
+                                        <TextField fx:id="field_incidencias_nombreCliente" promptText="Nombre Cliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="field_incidencias_descripcion" alignment="TOP_LEFT" prefHeight="122.0" prefWidth="421.0" promptText="Descripción corta del problema" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="field_incidencias_estado" editable="false" promptText="true/false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    </children>
+                                </GridPane>
+                                <GridPane fx:id="grid_bottom_incidencias" alignment="CENTER" layoutX="4.0" layoutY="418.0" prefHeight="25.0" prefWidth="593.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="38.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="9.0" prefWidth="27.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="5.0" prefWidth="41.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="0.0" prefWidth="37.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="39.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="94.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="519.0" minWidth="10.0" prefWidth="294.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="28.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#btn_casualties_first" prefHeight="25.0" prefWidth="29.0" text="|&lt;" />
+                                        <Button mnemonicParsing="false" onAction="#btn_casualties_previous" text="&lt;" GridPane.columnIndex="1" />
+                                        <TextField fx:id="field_incidencias_page" prefHeight="25.0" prefWidth="9.0" promptText="  [ ]" GridPane.columnIndex="2" />
+                                        <Button mnemonicParsing="false" onAction="#btn_casualties_next" text="&gt;" GridPane.columnIndex="3" />
+                                        <Button mnemonicParsing="false" onAction="#btn_incidences_last" text="&gt;|" GridPane.columnIndex="4" />
+                                        <Button mnemonicParsing="false" onAction="#btn_incidencias_add" prefHeight="25.0" prefWidth="81.0" text="Añadir" GridPane.columnIndex="5" />
+                                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Eliminar" GridPane.columnIndex="6" />
+                                    </children>
+                                </GridPane>
+                        <RadioButton fx:id="btn_incidencias_sinResolver" layoutX="172.0" layoutY="269.0" mnemonicParsing="false" onAction="#setBtn_incidencias_sinResolver" text="Sin Resolver" />
+                        <RadioButton fx:id="btn_incidencias_resuelta" layoutX="172.0" layoutY="245.0" mnemonicParsing="false" onAction="#setBtn_incidencias_resuelta" text="Resuelta" />
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
