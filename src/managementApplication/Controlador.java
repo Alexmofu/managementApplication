@@ -1,4 +1,5 @@
 package managementApplication;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
+import java.util.EnumSet;
 
 public class Controlador {
     @FXML
@@ -46,6 +48,9 @@ public class Controlador {
 
     @FXML
     private TextField field_client_page;
+
+    @FXML
+    private TextField field_tipoIncidencia;
 
     @FXML
     private TextField field_products_codigo;
@@ -91,25 +96,26 @@ public class Controlador {
     private int products_pos = 0;
     private int incidencias_pos = 0;
 
-    public void initialize(){
+    public void initialize() {
         GestionDatos.inicializarDatos();
         //Update de las 3 Pestañas
         client_DataUpdate();
         products_DataUpdate();
         incidences_DataUpdate();
     }
+
     /**
      * Botones
      */
-    public void btn_topmenu_close(){
+    public void btn_topmenu_close() {
         Platform.exit();
     }
 
-    public void btn_topmenu_version(){
-    //#PLACEHOLDER
+    public void btn_topmenu_version() {
+        //#PLACEHOLDER
     }
 
-    public void btn_about_close(){
+    public void btn_about_close() {
         Platform.exit();
     }
 
@@ -138,11 +144,11 @@ public class Controlador {
     }
 
     //Va a la última entrada iterando desde el principio
-    public void btn_client_last(ActionEvent Event){
+    public void btn_client_last(ActionEvent Event) {
         client_pos = 0;
         for (int i = 0; i < GestionDatos.ArrayClientes.length; i++) {
             client_pos++;
-            if(GestionDatos.ArrayClientes[i] == null){
+            if (GestionDatos.ArrayClientes[i] == null) {
                 client_pos--;
                 client_pos--;
                 client_DataUpdate();
@@ -153,7 +159,7 @@ public class Controlador {
     }
 
     //Añade los cambios al cliente actual
-    public void btn_client_add(ActionEvent Event){
+    public void btn_client_add(ActionEvent Event) {
         GestionDatos.ArrayClientes[client_pos].setNif(field_client_nif.getText());
         GestionDatos.ArrayClientes[client_pos].setNombre(field_client_nombre.getText());
         GestionDatos.ArrayClientes[client_pos].setApellidos(field_client_apellidos.getText());
@@ -163,11 +169,12 @@ public class Controlador {
         try {
             GestionDatos.ArrayClientes[client_pos].setTelefono(Integer.parseInt(field_client_telefono.getText()));
             field_client_telefono.setPromptText("123456789");
-        }catch (Exception e){
+        } catch (Exception e) {
             field_client_telefono.setPromptText("Error, el Teléfono debe tener el siguiente formato: 123456789");
             field_client_telefono.clear();
         }
     }
+
     //Va a la primera entrada
     public void btn_products_first(ActionEvent Event) {
         products_pos = 0;
@@ -199,11 +206,11 @@ public class Controlador {
     }
 
     //Va a la última entrada iterando desde el principio
-    public void btn_products_last(ActionEvent Event){
+    public void btn_products_last(ActionEvent Event) {
         products_pos = 0;
         for (int i = 0; i < GestionDatos.ArrayProductos.length; i++) {
             products_pos++;
-            if(GestionDatos.ArrayProductos[i] == null){
+            if (GestionDatos.ArrayProductos[i] == null) {
                 products_pos--;
                 products_pos--;
                 products_DataUpdate();
@@ -214,14 +221,14 @@ public class Controlador {
     }
 
     //Añade los cambios al cliente actual
-    public void btn_products_add(ActionEvent Event){
+    public void btn_products_add(ActionEvent Event) {
         GestionDatos.ArrayProductos[products_pos].setCodigo(field_products_codigo.getText());
         GestionDatos.ArrayProductos[products_pos].setNombre(field_products_nombre.getText());
         GestionDatos.ArrayProductos[products_pos].setDescripcion(field_products_descripcion.getText());
         try {
             GestionDatos.ArrayProductos[products_pos].setUnidades(Integer.parseInt(field_products_unidades.getText()));
             field_products_unidades.setPromptText("111111111");
-        }catch (Exception e){
+        } catch (Exception e) {
             field_products_unidades.setPromptText("Error, las unidades deben tener el siguiente formato: 123456789");
             field_products_unidades.clear();
         }
@@ -229,8 +236,8 @@ public class Controlador {
 
     //Va a la entrada anterior
     public void btn_casualties_previous(ActionEvent Event) {
-        if(incidencias_pos > 0){
-            if(GestionDatos.ArrayIncidencias[incidencias_pos -1] != null){
+        if (incidencias_pos > 0) {
+            if (GestionDatos.ArrayIncidencias[incidencias_pos - 1] != null) {
                 incidencias_pos--;
                 incidences_DataUpdate();
             }
@@ -239,18 +246,18 @@ public class Controlador {
 
     //Va a la siguiente entrada
     public void btn_casualties_next(ActionEvent Event) {
-        if(GestionDatos.ArrayIncidencias[incidencias_pos + 1] != null){
+        if (GestionDatos.ArrayIncidencias[incidencias_pos + 1] != null) {
             incidencias_pos++;
             incidences_DataUpdate();
         }
     }
 
     //Va a la última entrada iterando desde el principio
-    public void btn_incidences_last(ActionEvent Event){
+    public void btn_incidences_last(ActionEvent Event) {
         incidencias_pos = 0;
         for (int i = 0; i < GestionDatos.ArrayIncidencias.length; i++) {
             incidencias_pos++;
-            if(GestionDatos.ArrayIncidencias[i] == null){
+            if (GestionDatos.ArrayIncidencias[i] == null) {
                 incidencias_pos--;
                 incidencias_pos--;
                 incidences_DataUpdate();
@@ -261,20 +268,28 @@ public class Controlador {
     }
 
     //Añade los cambios al cliente actual
-    public void btn_incidencias_add(ActionEvent Event){
+    public void btn_incidencias_add(ActionEvent Event) {
         GestionDatos.ArrayIncidencias[incidencias_pos].setNombreCliente(field_incidencias_nombreCliente.getText());
         GestionDatos.ArrayIncidencias[incidencias_pos].setDescripcion(field_incidencias_descripcion.getText());
         try {
             GestionDatos.ArrayIncidencias[incidencias_pos].setCodigo(Integer.parseInt(field_incidencias_codigo.getText()));
             GestionDatos.ArrayIncidencias[incidencias_pos].setStatus(Boolean.parseBoolean(field_incidencias_estado.getText()));
+
             field_incidencias_codigo.setPromptText("111111111");
-        }catch (Exception e){
+        } catch (Exception e) {
             field_incidencias_codigo.setPromptText("Error, el código debe tener el siguiente formato: 123456789");
             field_incidencias_codigo.clear();
         }
+        try {
+            GestionDatos.ArrayIncidencias[incidencias_pos].setTipoIncidente(TipoIncidencia.valueOf(field_tipoIncidencia.getText()));
+            field_tipoIncidencia.setPromptText("HARDWARE, SOFTWARE, PRESUPUESTO");
+        } catch (Exception e) {
+            field_tipoIncidencia.setPromptText("Error, las incidencias solo pueden ser: HARDWARE, SOFTWARE, PRESUPUESTO");
+            field_tipoIncidencia.clear();
+        }
     }
 
-    public void setBtn_incidencias_sinResolver(){
+    public void setBtn_incidencias_sinResolver() {
         field_incidencias_estado.setText("false");
         btn_incidencias_sinResolver.setSelected(true);
         btn_incidencias_resuelta.setSelected(false);
@@ -282,7 +297,7 @@ public class Controlador {
         btn_incidencias_sinResolver.setDisable(true);
     }
 
-    public void setBtn_incidencias_resuelta(){
+    public void setBtn_incidencias_resuelta() {
         field_incidencias_estado.setText("true");
         btn_incidencias_sinResolver.setSelected(false);
         btn_incidencias_resuelta.setSelected(true);
@@ -303,7 +318,8 @@ public class Controlador {
             field_client_cp.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getCodigoPostal()));
             field_client_telefono.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getTelefono()));
             field_client_page.setText(String.valueOf(client_pos + 1));
-    }}
+        }
+    }
 
     public void products_DataUpdate() {
         if (GestionDatos.ArrayProductos[products_pos] != null) {
@@ -312,7 +328,8 @@ public class Controlador {
             field_products_descripcion.setText(String.valueOf(GestionDatos.ArrayProductos[products_pos].getDescripcion()));
             field_products_unidades.setText(String.valueOf(GestionDatos.ArrayProductos[products_pos].getUnidades()));
             field_products_page.setText(String.valueOf(products_pos + 1));
-        }}
+        }
+    }
 
     public void incidences_DataUpdate() {
         if (GestionDatos.ArrayIncidencias[incidencias_pos] != null) {
@@ -321,9 +338,11 @@ public class Controlador {
             field_incidencias_descripcion.setText(String.valueOf(GestionDatos.ArrayIncidencias[incidencias_pos].getDescripcion()));
             field_incidencias_estado.setText(String.valueOf(GestionDatos.ArrayIncidencias[incidencias_pos].isStatus()));
             field_incidencias_page.setText(String.valueOf(incidencias_pos + 1));
+            field_tipoIncidencia.setText(String.valueOf(GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente()));
             btn_incidencias_sinResolver.setSelected(false);
             btn_incidencias_resuelta.setSelected(false);
             btn_incidencias_resuelta.setDisable(false);
             btn_incidencias_sinResolver.setDisable(false);
-    }}
+        }
+    }
 }

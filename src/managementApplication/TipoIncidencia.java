@@ -4,10 +4,6 @@ public enum TipoIncidencia {
     HARDWARE,
     PRESUPUESTO,
     SOFTWARE;
-
-    TipoIncidencia() {
-
-    }
 }
 
 

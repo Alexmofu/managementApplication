@@ -8,21 +8,31 @@ public class Incidencia {
     private String nombreCliente;
     private String descripcion;
     private boolean status;
+    TipoIncidencia tipoIncidente;
 
     /**
      * Constructor de Incidencias
      */
 
-    public Incidencia(int codigo, String nombreCliente, String descripcion, boolean status) {
+    public Incidencia(int codigo, String nombreCliente, String descripcion, TipoIncidencia tipoIncidente, boolean status) {
         this.codigo = codigo;
         this.nombreCliente = nombreCliente;
         this.descripcion = descripcion;
+        this.tipoIncidente = tipoIncidente;
         this.status = status;
     }
 
     /**
      * Get & Set
      */
+
+    public TipoIncidencia getTipoIncidente() {
+        return tipoIncidente;
+    }
+
+    public void setTipoIncidente(TipoIncidencia tipoIncidente) {
+        this.tipoIncidente = tipoIncidente;
+    }
 
     public int getCodigo() {
         return codigo;
