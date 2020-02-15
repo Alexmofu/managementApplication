@@ -14,9 +14,10 @@ public class GestionDatos {
     public static Incidencia[] ArrayIncidencias = new Incidencia[1000];
 
     public static void inicializarDatos() {
-        ArrayClientes[0] = new Cliente("12128623Z", "Manolo", "Diaz", "C/ Pastor", "Madrid", "28001", 758354021);
-        ArrayClientes[1] = new Cliente("52789624Z", "Carmen", "Lopez", "C/ Albañiz", "Madrid", "28001", 662712367);
-        ArrayClientes[2] = new Cliente("98711202Z", "Rodrigo", "Ortiz", "C/ Juan Carlos", "Madrid", "28001", 658175369);
+        ArrayClientes[0] = new Agricultor("12128623Z", "Manolo", "Diaz", "C/ Pastor", "Madrid", "28001", 758354021,"Tomates",5,"Tomateros");
+        ArrayClientes[1] = new Agricultor("52789624Z", "Carmen", "Lopez", "C/ Albañiz", "Madrid", "28001", 662712367,"Patatas",20,"Patateros");
+        ArrayClientes[2] = new Distribuidor("98711202Z", "Rodrigo", "Ortiz", "C/ Juan Carlos", "Madrid", "28001", 658175369,45,FormaDePago.CONTADO);
+        ArrayClientes[3] = new Distribuidor("123456789Z","Pruebas","Mc Milan","C/ Testeo","Pruebalandia","12345",987523456,20,FormaDePago.SESENTA_DIAS);
         ArrayProductos[0] = new Producto("1", "Champú Genérico", "Marca Blanca Genérica del champú más barato 2€", 3027);
         ArrayProductos[1] = new Producto("2", "Cortauñas", "Cortauñas hidráulico de alta presión 700€", 147);
         ArrayProductos[2] = new Producto("3", "Pierna Robótica", "Pierna de alta presión con capacidad de salto alta 825€", 15);

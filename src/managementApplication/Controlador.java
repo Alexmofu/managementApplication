@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.EnumSet;
 
 public class Controlador {
@@ -88,6 +89,29 @@ public class Controlador {
     @FXML
     private TextField field_incidencias_page;
 
+    @FXML
+    private ChoiceBox<String> choice_client_type;
+
+    @FXML
+    private ChoiceBox<String> choice_client_payment;
+
+    @FXML
+    private ChoiceBox<String> choice_incidencias_type;
+
+    @FXML
+    private TextField field_client_credit;
+
+    @FXML
+    private TextField field_clientes_comunidadRegantes;
+
+    @FXML
+    private TextField field_clientes_numInvernaderos;
+
+    @FXML
+    private TextField field_clientes_tipoCultivo;
+
+
+
     /**
      * Atributos para posición de páginas
      */
@@ -95,8 +119,19 @@ public class Controlador {
     private int client_pos = 0;
     private int products_pos = 0;
     private int incidencias_pos = 0;
+    private Agricultor agricultor;
 
     public void initialize() {
+
+        choice_client_type.getItems().add("Distribuidor");
+        choice_client_type.getItems().add("Agricultor");
+        choice_client_payment.getItems().add("CONTADO");
+        choice_client_payment.getItems().add("TREINTA_DIAS");
+        choice_client_payment.getItems().add("SESENTA_DIAS");
+        choice_incidencias_type.getItems().add("HARDWARE");
+        choice_incidencias_type.getItems().add("PRESUPUESTO");
+        choice_incidencias_type.getItems().add("SOFTWARE");
+
         GestionDatos.inicializarDatos();
         //Update de las 3 Pestañas
         client_DataUpdate();
@@ -172,6 +207,16 @@ public class Controlador {
         } catch (Exception e) {
             field_client_telefono.setPromptText("Error, el Teléfono debe tener el siguiente formato: 123456789");
             field_client_telefono.clear();
+        }
+        try{
+            //TODO setTipoCliente con DropMenu
+        }catch (Exception e){
+            choice_incidencias_type.setAccessibleText("ERROR");
+        }
+        try{
+            //TODO setCreditoDisponible & formaDePago
+        }catch (Exception e){
+            field_client_credit.setPromptText("123456789");
         }
     }
 
@@ -287,6 +332,11 @@ public class Controlador {
             field_tipoIncidencia.setPromptText("Error, las incidencias solo pueden ser: HARDWARE, SOFTWARE, PRESUPUESTO");
             field_tipoIncidencia.clear();
         }
+        try{
+            //TODO setTipoIncidente con DropMenu
+        }catch (Exception e) {
+            choice_incidencias_type.setAccessibleText("ERROR");
+        }
     }
 
     public void setBtn_incidencias_sinResolver() {
@@ -317,6 +367,13 @@ public class Controlador {
             field_client_localidad.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getLocalidad()));
             field_client_cp.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getCodigoPostal()));
             field_client_telefono.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getTelefono()));
+            //TODO DROPDOWN TIPO CLIENTE
+            //TODO FIELD CULTIVO
+            //field_clientes_tipoCultivo.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].ge));
+            //TODO FIELD NUMERO INVERNADEROS
+            //TODO FIELD COMUNIDAD DE REGANTES
+            //TODO FIELD CREDITO DISPONIBLE
+            //TODO DROPDOWN FORMA DE PAGO
             field_client_page.setText(String.valueOf(client_pos + 1));
         }
     }
@@ -339,6 +396,18 @@ public class Controlador {
             field_incidencias_estado.setText(String.valueOf(GestionDatos.ArrayIncidencias[incidencias_pos].isStatus()));
             field_incidencias_page.setText(String.valueOf(incidencias_pos + 1));
             field_tipoIncidencia.setText(String.valueOf(GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente()));
+
+            if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.HARDWARE){
+                //TODO SET CHOICEBOX TO HARDWARE
+                System.out.println("hardware");
+            }else if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.SOFTWARE){
+                //TODO SET CHOICEBOX TO SOFTWARE
+                System.out.println("software");
+            }else if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.PRESUPUESTO){
+                //TODO SET CHOICE BOX TO PRESUPUESTO
+                System.out.println("presupuesto");
+            }
+
             btn_incidencias_sinResolver.setSelected(false);
             btn_incidencias_resuelta.setSelected(false);
             btn_incidencias_resuelta.setDisable(false);

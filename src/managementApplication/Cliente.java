@@ -1,6 +1,6 @@
 package managementApplication;
 
-public class Cliente {
+public abstract class Cliente {
     /**
      * Attributes
      */
