@@ -1,10 +1,16 @@
 package managementApplication;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -90,7 +96,7 @@ public class Controlador {
     private TextField field_incidencias_page;
 
     @FXML
-    private ChoiceBox<String> choice_client_type;
+    private TextField field_client_type;
 
     @FXML
     private ChoiceBox<String> choice_client_payment;
@@ -123,8 +129,6 @@ public class Controlador {
 
     public void initialize() {
 
-        choice_client_type.getItems().add("Distribuidor");
-        choice_client_type.getItems().add("Agricultor");
         choice_client_payment.getItems().add("CONTADO");
         choice_client_payment.getItems().add("TREINTA_DIAS");
         choice_client_payment.getItems().add("SESENTA_DIAS");
@@ -146,12 +150,81 @@ public class Controlador {
         Platform.exit();
     }
 
-    public void btn_topmenu_version() {
-        //#PLACEHOLDER
+    public void btn_topmenu_version(ActionEvent Event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("About");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        stage.setResizable(false);
     }
 
-    public void btn_about_close() {
-        Platform.exit();
+    public void btn_addClient(ActionEvent Event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("AddClient.fxml"));
+        Scene sceneClient = new Scene(root);
+        Stage stageAddClient = new Stage();
+        stageAddClient.setScene(sceneClient);
+        stageAddClient.setTitle("Añadir Cliente");
+        stageAddClient.initModality(Modality.APPLICATION_MODAL);
+        stageAddClient.show();
+        stageAddClient.setResizable(false);
+    }
+
+    public void btn_addIncidencia(ActionEvent Event) throws IOException {
+        GestionDatos.ArrayIncidencias[lastNotNullIncidencia()] = new Incidencia(0,"","",TipoIncidencia.HARDWARE,false); // falta añadir una función para que el código no sea 0 y sea el último disponible
+        incidencias_pos = 0;
+        for (int i = 0; i < GestionDatos.ArrayIncidencias.length; i++) {
+            incidencias_pos++;
+            if (GestionDatos.ArrayIncidencias[i] == null) {
+                incidencias_pos--;
+                incidencias_pos--;
+                incidences_DataUpdate();
+                break;
+
+            }
+        }
+    }
+
+    public static int lastNotNullIncidencia(){
+        int lastIncidencia = 0;
+        for (int i = 0; i < GestionDatos.ArrayIncidencias.length; i++) {
+            lastIncidencia++;
+            if (GestionDatos.ArrayIncidencias[i] == null) {
+                lastIncidencia--;
+                break;
+
+            }
+        }
+        return lastIncidencia;
+    }
+
+    public static int lastNotNullProducto(){
+        int lastProducto = 0;
+        for (int i = 0; i < GestionDatos.ArrayProductos.length; i++) {
+            lastProducto++;
+            if (GestionDatos.ArrayProductos[i] == null) {
+                lastProducto--;
+                break;
+
+            }
+        }
+        return lastProducto;
+    }
+    public void btn_addProducto(ActionEvent Event) throws IOException {
+        GestionDatos.ArrayProductos[lastNotNullProducto()] = new Producto("", "", "", 0);
+        products_pos = 0;
+        for (int i = 0; i < GestionDatos.ArrayProductos.length; i++) {
+            products_pos++;
+            if (GestionDatos.ArrayProductos[i] == null) {
+                products_pos--;
+                products_pos--;
+                products_DataUpdate();
+                break;
+
+            }
+        }
     }
 
     //Va a la primera entrada
@@ -194,7 +267,7 @@ public class Controlador {
     }
 
     //Añade los cambios al cliente actual
-    public void btn_client_add(ActionEvent Event) {
+    public void btn_client_save(ActionEvent Event) {
         GestionDatos.ArrayClientes[client_pos].setNif(field_client_nif.getText());
         GestionDatos.ArrayClientes[client_pos].setNombre(field_client_nombre.getText());
         GestionDatos.ArrayClientes[client_pos].setApellidos(field_client_apellidos.getText());
@@ -208,16 +281,37 @@ public class Controlador {
             field_client_telefono.setPromptText("Error, el Teléfono debe tener el siguiente formato: 123456789");
             field_client_telefono.clear();
         }
+
         try{
-            //TODO setTipoCliente con DropMenu
-        }catch (Exception e){
-            choice_incidencias_type.setAccessibleText("ERROR");
-        }
-        try{
-            //TODO setCreditoDisponible & formaDePago
+            if (GestionDatos.ArrayClientes[client_pos].getClass().equals(Agricultor.class)) {
+                Agricultor a = (Agricultor) GestionDatos.ArrayClientes[client_pos];
+                a.setCultivo(field_clientes_tipoCultivo.getText());
+                a.setComunidadRegantes(field_clientes_comunidadRegantes.getText());
+                a.setNumeroInvernaderos(Integer.parseInt(field_clientes_numInvernaderos.getText()));
+            }
+
         }catch (Exception e){
             field_client_credit.setPromptText("123456789");
         }
+            if(GestionDatos.ArrayClientes[client_pos].getClass().equals(Distribuidor.class)){
+                Distribuidor a = (Distribuidor) GestionDatos.ArrayClientes[client_pos];
+                a.setCreditoDisponible(Float.parseFloat(field_client_credit.getText()));
+                try{
+                    System.out.println(choice_client_payment.getValue()); // DEBUG
+                    String tipoPago = choice_client_payment.getValue();
+                    if (tipoPago.equals("CONTADO")){
+                        a.setNewFormaDePago(FormaDePago.CONTADO);
+                    }else if (tipoPago.equals("SESENTA_DIAS")){
+                        a.setNewFormaDePago(FormaDePago.SESENTA_DIAS);
+                    }else if (tipoPago.equals("TREINTA_DIAS")){
+                        a.setNewFormaDePago(FormaDePago.TREINTA_DIAS);
+                    }
+
+                }catch (Exception e) {
+                    choice_incidencias_type.setAccessibleText("ERROR");
+                }
+            }
+        client_DataUpdate();
     }
 
     //Va a la primera entrada
@@ -266,7 +360,7 @@ public class Controlador {
     }
 
     //Añade los cambios al cliente actual
-    public void btn_products_add(ActionEvent Event) {
+    public void btn_products_save(ActionEvent Event) {
         GestionDatos.ArrayProductos[products_pos].setCodigo(field_products_codigo.getText());
         GestionDatos.ArrayProductos[products_pos].setNombre(field_products_nombre.getText());
         GestionDatos.ArrayProductos[products_pos].setDescripcion(field_products_descripcion.getText());
@@ -277,6 +371,7 @@ public class Controlador {
             field_products_unidades.setPromptText("Error, las unidades deben tener el siguiente formato: 123456789");
             field_products_unidades.clear();
         }
+        products_DataUpdate();
     }
 
     //Va a la entrada anterior
@@ -313,7 +408,7 @@ public class Controlador {
     }
 
     //Añade los cambios al cliente actual
-    public void btn_incidencias_add(ActionEvent Event) {
+    public void btn_incidencias_save(ActionEvent Event) {
         GestionDatos.ArrayIncidencias[incidencias_pos].setNombreCliente(field_incidencias_nombreCliente.getText());
         GestionDatos.ArrayIncidencias[incidencias_pos].setDescripcion(field_incidencias_descripcion.getText());
         try {
@@ -333,10 +428,21 @@ public class Controlador {
             field_tipoIncidencia.clear();
         }
         try{
-            //TODO setTipoIncidente con DropMenu
+            System.out.println(choice_incidencias_type.getValue()); // DEBUG
+
+            String tipoIncidencia = choice_incidencias_type.getValue();
+            if (tipoIncidencia.equals("HARDWARE")){
+                GestionDatos.ArrayIncidencias[incidencias_pos].setTipoIncidente(TipoIncidencia.HARDWARE);
+            }else if (tipoIncidencia.equals("SOFTWARE")){
+                GestionDatos.ArrayIncidencias[incidencias_pos].setTipoIncidente(TipoIncidencia.SOFTWARE);
+            }else if (tipoIncidencia.equals("PRESUPUESTO")){
+                GestionDatos.ArrayIncidencias[incidencias_pos].setTipoIncidente(TipoIncidencia.PRESUPUESTO);
+            }
+
         }catch (Exception e) {
             choice_incidencias_type.setAccessibleText("ERROR");
         }
+        incidences_DataUpdate();
     }
 
     public void setBtn_incidencias_sinResolver() {
@@ -367,13 +473,37 @@ public class Controlador {
             field_client_localidad.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getLocalidad()));
             field_client_cp.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getCodigoPostal()));
             field_client_telefono.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].getTelefono()));
-            //TODO DROPDOWN TIPO CLIENTE
-            //TODO FIELD CULTIVO
-            //field_clientes_tipoCultivo.setText(String.valueOf(GestionDatos.ArrayClientes[client_pos].ge));
-            //TODO FIELD NUMERO INVERNADEROS
-            //TODO FIELD COMUNIDAD DE REGANTES
-            //TODO FIELD CREDITO DISPONIBLE
-            //TODO DROPDOWN FORMA DE PAGO
+            try{
+                if (GestionDatos.ArrayClientes[client_pos].getClass().equals(Agricultor.class)){
+                    Agricultor a = (Agricultor) GestionDatos.ArrayClientes[client_pos];
+                    field_client_type.setText("Agricultor");
+                    field_clientes_tipoCultivo.setText(a.getCultivo());
+                    field_clientes_comunidadRegantes.setText(a.getComunidadRegantes());
+                    field_clientes_numInvernaderos.setText(String.valueOf(a.getNumeroInvernaderos()));
+                    field_client_credit.setText("");
+                    field_client_credit.setDisable(true);
+                    choice_client_payment.setDisable(true);
+                    field_clientes_tipoCultivo.setDisable(false);
+                    field_clientes_comunidadRegantes.setDisable(false);
+                    field_clientes_numInvernaderos.setDisable(false);
+                }else if (GestionDatos.ArrayClientes[client_pos].getClass().equals(Distribuidor.class)){
+                    Distribuidor a = (Distribuidor) GestionDatos.ArrayClientes[client_pos];
+                    field_client_type.setText("Distribuidor");
+                    field_client_credit.setText(String.valueOf(a.creditoDisponible));
+                    field_clientes_numInvernaderos.setText("");
+                    field_clientes_comunidadRegantes.setText("");
+                    field_clientes_tipoCultivo.setText("");
+                    field_client_credit.setDisable(false);
+                    choice_client_payment.setDisable(false);
+                    field_clientes_tipoCultivo.setDisable(true);
+                    field_clientes_comunidadRegantes.setDisable(true);
+                    field_clientes_numInvernaderos.setDisable(true);
+                    choice_client_payment.setValue(a.getNewFormaDePago().toString());
+                }
+
+            }catch (Exception e){
+                choice_incidencias_type.setAccessibleText("ERROR");
+            }
             field_client_page.setText(String.valueOf(client_pos + 1));
         }
     }
@@ -397,15 +527,12 @@ public class Controlador {
             field_incidencias_page.setText(String.valueOf(incidencias_pos + 1));
             field_tipoIncidencia.setText(String.valueOf(GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente()));
 
-            if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.HARDWARE){
-                //TODO SET CHOICEBOX TO HARDWARE
-                System.out.println("hardware");
+            if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.HARDWARE) {
+                choice_incidencias_type.setValue("HARDWARE");
             }else if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.SOFTWARE){
-                //TODO SET CHOICEBOX TO SOFTWARE
-                System.out.println("software");
+                choice_incidencias_type.setValue("SOFTWARE");
             }else if (GestionDatos.ArrayIncidencias[incidencias_pos].getTipoIncidente() == TipoIncidencia.PRESUPUESTO){
-                //TODO SET CHOICE BOX TO PRESUPUESTO
-                System.out.println("presupuesto");
+                choice_incidencias_type.setValue("PRESUPUESTO");
             }
 
             btn_incidencias_sinResolver.setSelected(false);

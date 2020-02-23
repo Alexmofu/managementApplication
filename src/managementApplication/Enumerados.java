@@ -1,5 +1,15 @@
 package managementApplication;
 
 public class Enumerados {
-//TODO INCLUIR LAS CLASES DE ENUMERADOS (TIPOINCIDENCIA Y FORMADEPAGO)
+    public enum TipoIncidencia{
+    HARDWARE,
+    PRESUPUESTO,
+    SOFTWARE
+    }
+    public enum FormaDePago{
+    CONTADO,
+    TREINTA_DIAS,
+    SESENTA_DIAS,
+    NULL
+    }
 }

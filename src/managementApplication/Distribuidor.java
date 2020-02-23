@@ -4,7 +4,7 @@ public class Distribuidor extends Cliente{
     /**
      * Atributos
      */
-    float creditoDisponible;
+    public float creditoDisponible;
     FormaDePago  newFormaDePago;
 
     /**

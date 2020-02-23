@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="78.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managementApplication.AddClientController">
+   <children>
+      <RadioButton fx:id="Agricultor" layoutX="21.0" layoutY="47.0" mnemonicParsing="false" onAction="#cambioTipoCliente" text="Agricultor">
+         <toggleGroup>
+            <ToggleGroup fx:id="tg_tipoCliente" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="Distribuidor" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambioTipoCliente" text="Distribuidor" toggleGroup="$tg_tipoCliente" />
+      <Separator layoutX="116.0" orientation="VERTICAL" prefHeight="76.0" prefWidth="0.0" />
+      <Button fx:id="btn_confirmar" layoutX="125.0" layoutY="5.0" mnemonicParsing="false" onAction="#confirmarClienteNuevo" prefHeight="68.0" prefWidth="155.0" text="Confirmar" />
+   </children>
+</AnchorPane>
