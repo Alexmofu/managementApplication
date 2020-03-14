@@ -1,6 +1,6 @@
 package managementApplication;
 
-public class Producto {
+public class Producto extends GestionDatos{
     /**
      * Atributos
      */

@@ -1,6 +1,6 @@
 package managementApplication;
 
-public abstract class Cliente {
+public abstract class Cliente extends GestionDatos{
     /**
      * Attributes
      */

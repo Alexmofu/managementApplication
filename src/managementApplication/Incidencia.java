@@ -1,6 +1,6 @@
 package managementApplication;
 
-public class Incidencia {
+public class Incidencia extends GestionDatos{
     /**
      * Atributos
      */

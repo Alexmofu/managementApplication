@@ -23,6 +23,8 @@
                 <Menu mnemonicParsing="false" text="Archivo">
                     <items>
                         <MenuItem fx:id="topmenu_close" mnemonicParsing="false" onAction="#btn_topmenu_close" text="Cerrar" />
+                  <MenuItem fx:id="topmenu_save" mnemonicParsing="false" onAction="#btn_topmenu_save" text="Guardar" />
+                  <MenuItem fx:id="topmenu_load" mnemonicParsing="false" onAction="#btn_topmenu_load" text="Cargar" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
@@ -96,7 +98,7 @@
                                         <Button mnemonicParsing="false" onAction="#btn_client_next" text="&gt;" GridPane.columnIndex="3" />
                                         <Button mnemonicParsing="false" onAction="#btn_client_last" text="&gt;|" GridPane.columnIndex="4" />
                                         <Button mnemonicParsing="false" onAction="#btn_client_save" prefHeight="25.0" prefWidth="229.0" text="Guardar Cambios" GridPane.columnIndex="7" />
-                                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Eliminar" GridPane.columnIndex="6" />
+                                        <Button mnemonicParsing="false" onAction="#eliminarCliente" prefHeight="25.0" prefWidth="88.0" text="Eliminar" GridPane.columnIndex="6" />
                               <Button mnemonicParsing="false" onAction="#btn_addClient" prefHeight="25.0" prefWidth="91.0" text="Nuevo" GridPane.columnIndex="5" />
                                     </children>
                                 </GridPane>
@@ -166,7 +168,7 @@
                                         <Button mnemonicParsing="false" onAction="#btn_products_next" text="&gt;" GridPane.columnIndex="3" />
                                         <Button mnemonicParsing="false" onAction="#btn_products_last" text="&gt;|" GridPane.columnIndex="4" />
                                         <Button mnemonicParsing="false" onAction="#btn_products_save" prefHeight="25.0" prefWidth="232.0" text="Guardar Cambios" GridPane.columnIndex="7" />
-                                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Eliminar" GridPane.columnIndex="6" />
+                                        <Button mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="25.0" prefWidth="81.0" text="Eliminar" GridPane.columnIndex="6" />
                               <Button mnemonicParsing="false" onAction="#btn_addProducto" prefHeight="25.0" prefWidth="91.0" text="Nuevo" GridPane.columnIndex="5" />
                                     </children>
                                 </GridPane>
@@ -228,7 +230,7 @@
                                         <Button mnemonicParsing="false" onAction="#btn_casualties_next" text="&gt;" GridPane.columnIndex="3" />
                                         <Button mnemonicParsing="false" onAction="#btn_incidences_last" text="&gt;|" GridPane.columnIndex="4" />
                                         <Button mnemonicParsing="false" onAction="#btn_incidencias_save" prefHeight="25.0" prefWidth="231.0" text="Guardar Cambios" GridPane.columnIndex="7" />
-                                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Eliminar" GridPane.columnIndex="6" />
+                                        <Button mnemonicParsing="false" onAction="#eliminarIncidencia" prefHeight="25.0" prefWidth="85.0" text="Eliminar" GridPane.columnIndex="6" />
                               <Button mnemonicParsing="false" onAction="#btn_addIncidencia" prefHeight="25.0" prefWidth="92.0" text="Nuevo" GridPane.columnIndex="5" />
                                     </children>
                                 </GridPane>

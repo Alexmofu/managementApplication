@@ -1,5 +1,7 @@
 package managementApplication;
 
+import com.sun.deploy.util.ArrayUtil;
+import com.sun.security.ntlm.Client;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class Controlador {
@@ -146,6 +149,43 @@ public class Controlador {
     /**
      * Botones
      */
+    @FXML
+    public void btn_topmenu_save(){
+        GestionDatos.guardarDatos();
+        incidences_DataUpdate();
+        client_DataUpdate();
+        products_DataUpdate();
+    }
+
+    @FXML
+    public void btn_topmenu_load(){
+        GestionDatos.cargarDatos();
+        incidences_DataUpdate();
+        client_DataUpdate();
+        products_DataUpdate();
+    }
+
+    @FXML
+    public void eliminarCliente(){
+        System.arraycopy(GestionDatos.ArrayClientes,client_pos +1,GestionDatos.ArrayClientes,client_pos,GestionDatos.ArrayClientes.length - client_pos - 1);
+        client_DataUpdate();
+
+    }
+
+    @FXML
+    public void eliminarProducto(){
+        System.arraycopy(GestionDatos.ArrayProductos,client_pos +1,GestionDatos.ArrayProductos,client_pos,GestionDatos.ArrayProductos.length - client_pos - 1);
+        products_DataUpdate();
+
+    }
+
+    @FXML
+    public void eliminarIncidencia(){
+        System.arraycopy(GestionDatos.ArrayIncidencias,client_pos +1,GestionDatos.ArrayIncidencias,client_pos,GestionDatos.ArrayIncidencias.length - client_pos - 1);
+        incidences_DataUpdate();
+
+    }
+
     public void btn_topmenu_close() {
         Platform.exit();
     }
@@ -278,6 +318,8 @@ public class Controlador {
             GestionDatos.ArrayClientes[client_pos].setTelefono(Integer.parseInt(field_client_telefono.getText()));
             field_client_telefono.setPromptText("123456789");
         } catch (Exception e) {
+            GestionDatos.escribirFallo(e);
+
             field_client_telefono.setPromptText("Error, el Teléfono debe tener el siguiente formato: 123456789");
             field_client_telefono.clear();
         }
@@ -291,13 +333,14 @@ public class Controlador {
             }
 
         }catch (Exception e){
+            GestionDatos.escribirFallo(e);
             field_client_credit.setPromptText("123456789");
         }
             if(GestionDatos.ArrayClientes[client_pos].getClass().equals(Distribuidor.class)){
                 Distribuidor a = (Distribuidor) GestionDatos.ArrayClientes[client_pos];
                 a.setCreditoDisponible(Float.parseFloat(field_client_credit.getText()));
                 try{
-                    System.out.println(choice_client_payment.getValue()); // DEBUG
+                    //System.out.println(choice_client_payment.getValue()); // DEBUG
                     String tipoPago = choice_client_payment.getValue();
                     if (tipoPago.equals("CONTADO")){
                         a.setNewFormaDePago(FormaDePago.CONTADO);
@@ -308,6 +351,7 @@ public class Controlador {
                     }
 
                 }catch (Exception e) {
+                    GestionDatos.escribirFallo(e);
                     choice_incidencias_type.setAccessibleText("ERROR");
                 }
             }
@@ -368,6 +412,7 @@ public class Controlador {
             GestionDatos.ArrayProductos[products_pos].setUnidades(Integer.parseInt(field_products_unidades.getText()));
             field_products_unidades.setPromptText("111111111");
         } catch (Exception e) {
+            GestionDatos.escribirFallo(e);
             field_products_unidades.setPromptText("Error, las unidades deben tener el siguiente formato: 123456789");
             field_products_unidades.clear();
         }
@@ -417,6 +462,7 @@ public class Controlador {
 
             field_incidencias_codigo.setPromptText("111111111");
         } catch (Exception e) {
+            GestionDatos.escribirFallo(e);
             field_incidencias_codigo.setPromptText("Error, el código debe tener el siguiente formato: 123456789");
             field_incidencias_codigo.clear();
         }
@@ -424,11 +470,12 @@ public class Controlador {
             GestionDatos.ArrayIncidencias[incidencias_pos].setTipoIncidente(TipoIncidencia.valueOf(field_tipoIncidencia.getText()));
             field_tipoIncidencia.setPromptText("HARDWARE, SOFTWARE, PRESUPUESTO");
         } catch (Exception e) {
+            GestionDatos.escribirFallo(e);
             field_tipoIncidencia.setPromptText("Error, las incidencias solo pueden ser: HARDWARE, SOFTWARE, PRESUPUESTO");
             field_tipoIncidencia.clear();
         }
         try{
-            System.out.println(choice_incidencias_type.getValue()); // DEBUG
+            //System.out.println(choice_incidencias_type.getValue()); // DEBUG
 
             String tipoIncidencia = choice_incidencias_type.getValue();
             if (tipoIncidencia.equals("HARDWARE")){
@@ -440,6 +487,7 @@ public class Controlador {
             }
 
         }catch (Exception e) {
+            GestionDatos.escribirFallo(e);
             choice_incidencias_type.setAccessibleText("ERROR");
         }
         incidences_DataUpdate();
@@ -502,6 +550,7 @@ public class Controlador {
                 }
 
             }catch (Exception e){
+                GestionDatos.escribirFallo(e);
                 choice_incidencias_type.setAccessibleText("ERROR");
             }
             field_client_page.setText(String.valueOf(client_pos + 1));
